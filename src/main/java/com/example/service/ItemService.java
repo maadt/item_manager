@@ -20,7 +20,9 @@ public class ItemService {
 		this.itemRepository = itemRepository;
 	}
 	
-	public List<Item> findAll() { //データベース内のすべてのアイテムを取得して、アイテムのリストを返す
+	public List<Item> findAll() { 
+		// List ... 順序を持つ要素の集合
+		// Item ... Entityクラスの型
 		return this.itemRepository.findAll(); //データベースからすべてのアイテムを取得し、その結果を呼び出し元に返す
 	}
 }
