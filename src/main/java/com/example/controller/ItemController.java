@@ -33,7 +33,7 @@ public class ItemController {
 		List<Item> items = this.itemService.findAll();
 		System.out.println(items.toString());
 		  //http://localhost:8080/item にアクセスするとコンソールに取得したデータを出力
-		//model.addAttribute("items", items); //itemsをビューへ渡す
+		model.addAttribute("items", items); //itemsをビューへ渡す
 		return "item/index"; //「item/index.html」を返す
 	}
 	
