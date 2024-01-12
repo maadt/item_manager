@@ -22,8 +22,8 @@ public class ItemController {
 	
 	private final ItemService itemService;
 	
-	@Autowired
-	public ItemController(ItemService itemService) {
+	@Autowired //引数に紐づくクラスのインスタンスを生成し、利用する
+	public ItemController(ItemService itemService) { //コンストラクタインジェクション
 		this.itemService = itemService;
 	}
 	
