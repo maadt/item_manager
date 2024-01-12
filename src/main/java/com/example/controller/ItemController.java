@@ -31,9 +31,9 @@ public class ItemController {
 	@GetMapping //「http://localhost:8080/item」で取得できる
 	public String index(Model model) { // データを受け取りビューへ渡す
 		List<Item> items = this.itemService.findAll();
-		//System.out.println(items.toString());
+		System.out.println(items.toString());
 		  //http://localhost:8080/item にアクセスするとコンソールに取得したデータを出力
-		model.addAttribute("items", items); //itemsをビューへ渡す
+		//model.addAttribute("items", items); //itemsをビューへ渡す
 		return "item/index"; //「item/index.html」を返す
 	}
 	
