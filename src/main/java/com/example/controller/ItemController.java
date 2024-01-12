@@ -1,5 +1,8 @@
 package com.example.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,15 +11,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.entity.Item;
 import com.example.form.ItemForm;
+import com.example.service.ItemService;
+
 
 @Controller //コントローラーとしての機能を付与
 @RequestMapping("/item") //リクエストを受け取るパスを設定
 public class ItemController {
 	
+	private final ItemService itemService;
+	
+	@Autowired
+	public ItemController(ItemService itemService) {
+		this.itemService = itemService;
+	}
+	
 	//商品一覧を表示
 	@GetMapping //「http://localhost:8080/item」で取得できる
 	public String index(Model model) { // データを受け取りビューへ渡す
+		List<Item> items = this.itemService.findAll();
+		System.out.println(items.toString());
 		return "item/index"; //「item/index.html」を返す
 	}
 	
