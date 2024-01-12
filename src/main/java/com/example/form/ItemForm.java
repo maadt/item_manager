@@ -4,7 +4,7 @@ package com.example.form;
 // IDはパス変数から取得するので不要
 
 public class ItemForm {
-	
+
     private String name;
 
     private Integer price;

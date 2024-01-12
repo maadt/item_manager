@@ -49,7 +49,7 @@ public class ItemController {
 	// 商品登録の実行
 	@PostMapping("toroku") //「http://localhost:8080/item/toroku」で送信できる
 	public String toroku(ItemForm itemForm) { // itemForm を受け取る
-		return "redirect://item"; // 登録実行後 "/item" へリダイレクト
+		return "redirect:/item"; // 登録実行後 "/item" へリダイレクト
 	}
 	
 	// 商品編集ページ
@@ -68,13 +68,13 @@ public class ItemController {
 	@PostMapping("henshu/{id}") //「http://localhost:8080/henshu/{id}」で送信できる
 	public String henshu(@PathVariable("id") Integer id, @ModelAttribute("itemForm") ItemForm itemForm) {
 		
-		return "redirect://item";
+		return "redirect:/item";
 	}
 	
 	//商品削除の実行 
 	@PostMapping("sakujo/{id}") //「http://localhost:8080/sakujo/{id}」で送信できる
 	public String sakujo(@PathVariable("id") Integer id) {
-		return "redirect://item";
+		return "redirect:/item";
 	}
 }
 
