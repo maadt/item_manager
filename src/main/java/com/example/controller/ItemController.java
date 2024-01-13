@@ -54,8 +54,7 @@ public class ItemController {
 	
 	// 商品編集ページ
 	@GetMapping("henshu/{id}") //「http://localhost:8080/henshu/{id}」で取得できる
-	public String henshuPage(@PathVariable("id") Integer id, Model model
-	                         , @ModelAttribute("itemForm") ItemForm itemForm) {
+	public String henshuPage(@PathVariable("id") Integer id, Model model, @ModelAttribute("itemForm") ItemForm itemForm) {
 		// @PathVariable("id") Integer id ... URL内の"id"がIntegerに変換される
 		// Model model ... ビューにデータを渡す
 		// @ModelAttribute("itemForm") ... itemFormをモデルに追加

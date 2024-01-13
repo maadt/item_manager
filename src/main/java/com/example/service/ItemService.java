@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.example.entity.Item;
 import com.example.repository.ItemRepository;
 
-
 @Service // ビジネスロジックを実装し、アプリケーションの機能を提供するためのクラス
 public class ItemService {
 	
