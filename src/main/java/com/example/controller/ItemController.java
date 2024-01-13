@@ -20,7 +20,7 @@ import com.example.service.ItemService;
 @RequestMapping("/item") //リクエストを受け取るパスを設定
 public class ItemController {
 	
-	private final ItemService itemService;
+	private final ItemService itemService; // サービスクラスのインスタンスを保持する
 	
 	@Autowired //引数に紐づくクラスのインスタンスを生成し、利用する
 	public ItemController(ItemService itemService) { //コンストラクタインジェクション
@@ -49,6 +49,7 @@ public class ItemController {
 	// 商品登録の実行
 	@PostMapping("toroku") //「http://localhost:8080/item/toroku」で送信できる
 	public String toroku(ItemForm itemForm) { // itemForm を受け取る
+		this.itemService.save(itemForm); // サービスクラスのsaveメソッドを実行する
 		return "redirect:/item"; // 登録実行後 "/item" へリダイレクト
 	}
 	
