@@ -6,5 +6,34 @@
 </head>
 <body>
 	<h1>商品新規登録ページ</h1>
+	<form th:action="@{/item/toroku}" th:object="${itemForm}" method="post">
+	<!-- th:action="@{/item/toroku}"：コントローラーでマッピングしたパスと揃えて紐付け -->
+	<!-- th:object="${itemForm}"：コントローラーで紐付けたモデル属性を指定 -->
+	<!-- method="post" ... 受信側なのでpost -->
+	    <div>
+			<label>商品名</label>
+			<!-- なぜlabel? -->
+		</div>
+		<div>
+			<input type="text" th:field="*{name}" placeholder="商品名を入力してください">
+			<!-- input type="text"：テキスト形式での入力 -->
+			<!-- th:field="*{name}"：エンティティクラスで@Columnを付与して定義したフィールドに対応させる -->
+			<!-- placeholder="商品名を入力してください"：テキスト入力の際に表示させるメッセージ -->
+		</div>
+		<div>
+			<input type="number" th:field="*{price}" placeholder="価格を入力してください">
+			<!-- input type="number"：数値形式での入力 -->
+		</div>
+		<div>
+			<input type="submit" name="send" value="登録する">
+			<!-- input type="submit"：送信ボタンを作成する -->
+			<!-- name="send"：サーバーが識別するための一意の名称を定義 -->
+			<!-- value="登録する"：送信ボタンに表示するテキスト -->
+		</div>
+		<div>
+			<a href="/item">戻る</a>
+			<!-- 一覧ページに戻るためのパスを指定 -->
+		</div>
+	</form>
 </body>
 </html>
