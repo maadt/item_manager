@@ -55,12 +55,22 @@ public class ItemController {
 	
 	// 商品編集ページ
 	@GetMapping("henshu/{id}") //「http://localhost:8080/henshu/{id}」で取得できる
-	public String henshuPage(@PathVariable("id") Integer id, Model model, @ModelAttribute("itemForm") ItemForm itemForm) {
-		// @PathVariable("id") Integer id ... URL内の"id"がIntegerに変換される
+	public String henshuPage(@PathVariable("id") Integer id, Model model
+			                 , @ModelAttribute("itemForm") ItemForm itemForm) {
+		// @PathVariable("id") Integer id ... パスで渡された"id"がIntegerに変換される
 		// Model model ... ビューにデータを渡す
 		// @ModelAttribute("itemForm") ... itemFormをモデルに追加
 	    // ItemForm itemForm ... オブジェクト名
-		
+		Item item = this.itemService.findById(id);
+		// this.itemService.findById(id) ... idをサービスクラスのfindByIdメソッドに渡して実行
+		// Item item ... サービスクラスが取得したデータを保持する
+		itemForm.setName(item.getName());
+		// item.getName() ... itemクラスからデータを取得する
+		// itemForm.setName ... フォームクラスのフィールドにデータを渡す
+		itemForm.setPrice(item.getPrice());
+		model.addAttribute("id", id);
+		// model ... ビューに渡すためのコンテナ
+		// addAttribute ... 第一引数にモデル属性名、第二引数に変数名
 		return "item/henshuPage"; //「item/henshuPage.html」を返す
 	}
 	

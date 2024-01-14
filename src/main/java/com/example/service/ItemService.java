@@ -1,8 +1,7 @@
 package com.example.service;
 
 import java.util.List;
-
-//データの操作を伴う処理を作成する場合はServiceやRepositoryに処理を追加してからControllerの実装に入るのが基本です。
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +35,18 @@ public class ItemService {
 		item.setName(itemForm.getName()); // 追加したモデル属性の情報を取得してエンティティクラスにセット
 		item.setPrice(itemForm.getPrice());
 		return this.itemRepository.save(item); // itemRepositoryを介してDBにデータが保存される
+	}
+	
+	public Item findById(Integer id) { 
+	// findById(Integer id) ... コントローラーからidを受け取る
+		Optional<Item> optionalItem = this.itemRepository.findById(id);
+		// this.itemRepository.findById(id) ... JPAのfindByIdメソッドを使用してidに対応したデータを取得
+		// Optional ... データが見つからなかった場合でもnullではなくOptional.empty()を返す
+		// <Item> ... 取得したデータをItemクラスのフィールドに代入
+		// optionalItem ... Itemクラスのオブジェクトを保持する
+		Item item = optionalItem.get();
+		// Itemクラスからデータを取得し保持する
+		return item;
+		// 保持したデータを返す
 	}
 }
