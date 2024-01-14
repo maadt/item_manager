@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,16 +65,23 @@ public class ItemService {
 		return this.itemRepository.save(item); // itemRepositoryを介してデータの更新処理を行う
 	}
 	
-	// 削除処理
-	public void delete(Integer id) {
+	// 論理削除
+	public Item delete(Integer id) {
 	// Integer id ... コントローラークラスから商品IDを受け取る
-		this.itemRepository.deleteById(id);
+        Item item = this.findById(id);
+        // EntityクラスのdeletedAtフィールドを現在日時で上書きします
+        item.setDeletedAt(LocalDateTime.now());
+        return this.itemRepository.save(item);
+		
+        //物理削除
+		//this.itemRepository.deleteById(id);
 		// this.itemRepository.deleteById(id) ... itemRepositoryを介してデータの削除処理を行う
+        //メソッドは値を返さないのでvoid型となる
 	}
 	
-	// 論理削除
+	// 非表示処理
     public List<Item> findByDeletedAtIsNull() {
         return this.itemRepository.findByDeletedAtIsNull();
-        // this.itemRepository.findByDeletedAtIsNull() ... itemRepositoryを介して論理削除を行う
+        // this.itemRepository.findByDeletedAtIsNull() ... itemRepositoryを介して非表示処理を行う
     }
 }
