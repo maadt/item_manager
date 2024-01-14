@@ -41,9 +41,9 @@ public class ItemService {
 	
 	// データ取得処理
 	public Item findById(Integer id) { 
-	// findById(Integer id) ... コントローラーからidを受け取る
+	// findById(Integer id) ... コントローラークラスからidを受け取る
 		Optional<Item> optionalItem = this.itemRepository.findById(id);
-		// this.itemRepository.findById(id) ... ItemRepositoryインターフェイスを介してidに対応したデータを取得
+		// this.itemRepository.findById(id) ... itemRepositoryを介してidに対応したデータを取得
 		// Optional ... データが見つからなかった場合でもnullではなくOptional.empty()を返す
 		// <Item> ... 取得したデータをItemクラスのフィールドに代入
 		// optionalItem ... Itemクラスのオブジェクトを保持する
@@ -55,13 +55,19 @@ public class ItemService {
 	
 	//データ更新処理
 	public Item update(Integer id, ItemForm itemForm) {
-		// update ... ItemRepositoryインターフェイスを介してデータの更新処理を行う
-		// Integer id ... サービスクラスから商品IDを受け取る
-		// ItemForm itemForm ... サービスクラスから商品情報を受け取る
+	// Integer id ... コントローラークラスから商品IDを受け取る
+	// ItemForm itemForm ... コントローラークラスから商品情報を受け取る
 		Item item = this.findById(id);
 		// this.findById(id) ... クラス内のfindByIdメソッドを実行
 		item.setName(itemForm.getName()); // 追加したモデル属性の情報を取得してエンティティクラスにセット
 		item.setPrice(itemForm.getPrice());
-		return this.itemRepository.save(item); // itemRepositoryを介してDBにデータが保存される
+		return this.itemRepository.save(item); // itemRepositoryを介してデータの更新処理を行う
+	}
+	
+	// データ削除処理
+	public void delete(Integer id) {
+	// Integer id ... コントローラークラスから商品IDを受け取る
+		this.itemRepository.deleteById(id);
+		// this.itemRepository.deleteById(id) ... itemRepositoryを介してデータの削除処理を行う
 	}
 }

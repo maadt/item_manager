@@ -86,6 +86,8 @@ public class ItemController {
 	//商品削除の実行 
 	@PostMapping("sakujo/{id}") //「http://localhost:8080/sakujo/{id}」で送信できる
 	public String sakujo(@PathVariable("id") Integer id) {
+		this.itemService.delete(id);
+		// パスから渡されたidをサービスクラスのdeleteメソッドに渡して実行する
 		return "redirect:/item";
 	}
 }
