@@ -30,9 +30,11 @@ public class ItemController {
 	//商品一覧を表示
 	@GetMapping //「http://localhost:8080/item」で取得できる
 	public String index(Model model) { // データを受け取りビューへ渡す
-		List<Item> items = this.itemService.findAll();
+		List<Item> items = this.itemService.findByDeletedAtIsNull();
+		// this.itemService.findByDeletedAtIsNull() ... サービスクラスのメソッドを実行
+		// List<Item> items ... Itemクラスのフィールドに代入して保持する
 		System.out.println(items.toString());
-		  //http://localhost:8080/item にアクセスするとコンソールに取得したデータを出力
+		//http://localhost:8080/item にアクセスするとコンソールに取得したデータを出力
 		model.addAttribute("items", items); //itemsをビューへ渡す
 		return "item/index"; //「item/index.html」を返す
 	}
@@ -90,4 +92,6 @@ public class ItemController {
 		// パスから渡されたidをサービスクラスのdeleteメソッドに渡して実行する
 		return "redirect:/item";
 	}
+	
+	
 }
