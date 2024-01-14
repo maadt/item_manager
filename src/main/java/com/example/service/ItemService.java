@@ -49,4 +49,11 @@ public class ItemService {
 		return item;
 		// 保持したデータを返す
 	}
+	
+	public Item update(Integer id, ItemForm itemForm) {
+		Item item = this.findById(id);
+		item.setName(itemForm.getName());
+		item.setPrice(itemForm.getPrice());
+		return this.itemRepository.save(item);
+	}
 }

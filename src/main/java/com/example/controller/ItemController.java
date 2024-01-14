@@ -77,8 +77,10 @@ public class ItemController {
 	//商品編集の実行
 	@PostMapping("henshu/{id}") //「http://localhost:8080/henshu/{id}」で送信できる
 	public String henshu(@PathVariable("id") Integer id, @ModelAttribute("itemForm") ItemForm itemForm) {
-		
+		this.itemService.update(id, itemForm);
+		// サービスクラスのupdateメソッドに値を渡して実行
 		return "redirect:/item";
+		// redirect: ... 重複送信問題を防ぐためPOSTリクエスト内のreturn文に指定する
 	}
 	
 	//商品削除の実行 
