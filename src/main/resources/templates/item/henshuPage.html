@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xslns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>商品編集ページ</title>
+</head>
+<body>
+    <h1>商品編集ページ</h1>
+    <form th:action="@{/item/henshu/{id}(id=${id})}" th:object="${itemForm}" method="post">
+	<!-- /{id}：URLのパス部分-->
+	<!-- (id=${id})：コントローラークラスから値を受け取り、{id}へ渡す -->
+        <div>
+            <label>商品名</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{name}" placeholder="商品名を入力してください">
+        </div>
+        <div>
+            <label>価格</label>
+        </div>
+        <div>
+            <input type="number" th:field="*{price}" placeholder="価格を入力してください">
+        </div>
+        <div>
+            <label>カテゴリ名</label>
+        </div>
+        <div>
+            <select th:field="*{categoryId}">
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+            </select>
+            <!-- selectタグのth:fieldとoptionタグのth:valueが一致すると選択済みの表示になる
+            
+              例）itemFormのcategoryIdが「2」だった場合
+				<select id="categoryId" name="categoryId">
+                <option value="1">家電製品</option>
+                <option value="2" selected="selected">ゲーム</option>
+                <option value="3">日用品</option>
+                <option value="4">趣味</option>
+                <option value="5">仕事</option>
+                </select>
+            -->
+        </div>
+        <div>
+            <input type="submit" name="send" value="編集する">
+        </div>
+        <div>
+            <a href="/item">戻る</a>
+        </div>
+    </form>
+</body>
+</html>
