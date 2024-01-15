@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, link, contents)">
+<!-- th:fragment="layout()"：他のテンプレートから受け取るフラグメントの数を設定できる -->
+<!-- title：各画面のタイトル -->
+<!-- link：画面固有のCSSファイルのリンク-->
+<!-- contents：画面の本文コンテンツ -->
+<head>
+<meta charset="UTF-8">
+<title th:replace="${title}">共通部品</title>
+<!-- th:replace="${title}"：titleパラメータの値がタイトルとして表示（デフォルトで「共通部品」を表示） -->
+<link rel="stylesheet" href="/css/default.css">
+<link th:replace="${link}">
+<!-- th:replace="${link}"：linkパラメータの値がリンク先として表示 -->
+</head>
+<body>
+    <header th:replace="~{layout/header :: header}"></header>
+    <!-- layout/headerテンプレート内のheaderという名前のフラグメントをこの場所に挿入する -->
+    <div class="main">
+        <div id="side-menu" th:replace="~{layout/sideMenu :: side-menu}">&gt;</div>
+        <div class="contents" th:insert="${contents}">&gt;</div>
+        <!-- th:insert属性を使用して、contentsという変数または式の値をこの<div>要素内に挿入する -->
+    </div>
+</body>
+</html>
+
+<!--
+	th:replace：指定したタグを参照したフラグメントで置換することができます。
+              　指定したタグごと置換されるので、指定したタグは残りません。
+              
+    th:insert：指定したタグを参照したフラグメントで置換することができます。
+             　指定したタグごと置換されるので、指定したタグは残りません。
+-->
+
+<!--
+	フラグメント式
+	
+	・~{Viewのパス :: フラグメント名}
+	　Viewのパス で指定されたテンプレートファイルから、指定されたフラグメント名に一致する要素を特定し取得します。
+	　サンプルコードの場合、{layout/base :: layout({::title}, {::link}, {::body/content()})}とあるので、
+	　layoutフォルダ内のbase.htmlというファイルのlayoutという名前のフラグメントが取得対象になります。
+	　また、参照したいフラグメントで引数を定義している場合、値を渡すことができます。
+	　サンプルコードでは、layoutフラグメントにtitle要素とlink要素、body要素の中身を渡しています。
+	
+　　・~{:: セレクタ}
+   　フラグメント式が記載されているテンプレートファイル自身から、指定されたセレクタに該当する要素を特定し取得します。
+   　サンプルコードの場合、~{::title}はindex.htmlのtitle要素を指定しています。
+   　同様に、~{::link}はindex.htmlのlink要素を指定しています。
+   　また、~{::body/content()}はbodyタグ内の要素だけを指定しています。
+-->

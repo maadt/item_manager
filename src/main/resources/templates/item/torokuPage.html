@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns;th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{}, ~{::body/content()})}">
+<!-- ~{}：link要素がないため、空のフラグメント式を記述。要素がない場合はエラーを返す-->
 <head>
 <meta charset="UTF-8">
 <title>商品新規登録ページ</title>
@@ -31,7 +33,13 @@
         </div>
         <div>
             <select th:field="*{categoryId}">
+			<!-- select：選択肢の表示 -->
+			<!-- th:field="*{categoryId}"：categoryIdフィールドに紐付ける -->
                 <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                <!-- option：値をフォームデータとして処理して選択肢をユーザーに提供するための機能 -->
+                <!-- th:each="category" : ${categories}： categoriesリストの繰り返し処理 -->
+                <!-- th:value="${category.id}"： category.idが選択肢として表示される -->
+                <!-- th:text="${category.name}"： category.nameがテキストとして表示される -->
             </select>
         </div>
 		<div>

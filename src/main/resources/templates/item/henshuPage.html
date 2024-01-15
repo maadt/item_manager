@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xslns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{}, ~{::body/content()})}">
+<!-- ~{}：link要素がないため、空のフラグメント式を記述-->
 <head>
 <meta charset="UTF-8">
 <title>商品編集ページ</title>
