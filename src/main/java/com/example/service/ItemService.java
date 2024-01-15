@@ -37,6 +37,7 @@ public class ItemService {
 		Item item = new Item(); // 新しく登録するエンティティクラスのオブジェクトを作成
 		item.setName(itemForm.getName()); // 追加したモデル属性の情報を取得してエンティティクラスにセット
 		item.setPrice(itemForm.getPrice());
+		item.setCategoryId(itemForm.getCategoryId());
 		return this.itemRepository.save(item); // itemRepositoryを介してDBにデータが保存される
 	}
 	

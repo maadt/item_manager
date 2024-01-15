@@ -12,7 +12,6 @@
 	<!-- method="post" ... 受信側なのでpost -->
 	    <div>
 			<label>商品名</label>
-			<!-- なぜlabel? -->
 		</div>
 		<div>
 			<input type="text" th:field="*{name}" placeholder="商品名を入力してください">
@@ -21,9 +20,20 @@
 			<!-- placeholder="商品名を入力してください"：テキスト入力の際に表示させるメッセージ -->
 		</div>
 		<div>
+            <label>価格</label>
+        </div>
+		<div>
 			<input type="number" th:field="*{price}" placeholder="価格を入力してください">
 			<!-- input type="number"：数値形式での入力 -->
 		</div>
+		<div>
+            <label>カテゴリ名</label>
+        </div>
+        <div>
+            <select th:field="*{categoryId}">
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+            </select>
+        </div>
 		<div>
 			<input type="submit" name="send" value="登録する">
 			<!-- input type="submit"：送信ボタンを作成する -->

@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.entity.Category;
 import com.example.entity.Item;
 import com.example.form.ItemForm;
+import com.example.service.CategoryService;
 import com.example.service.ItemService;
 
 
@@ -20,11 +22,14 @@ import com.example.service.ItemService;
 @RequestMapping("/item") //リクエストを受け取るパスを設定
 public class ItemController {
 	
-	private final ItemService itemService; // サービスクラスのインスタンスを保持する
+	private final ItemService itemService; // ItemServiceクラスのインスタンスを保持する
+	private final CategoryService categoryService;
+
 	
 	@Autowired //引数に紐づくクラスのインスタンスを生成し、利用する
-	public ItemController(ItemService itemService) { //コンストラクタインジェクション
+	public ItemController(ItemService itemService, CategoryService categoryService) { //コンストラクタインジェクション
 		this.itemService = itemService;
+		this.categoryService = categoryService;
 	}
 	
 	//商品一覧を表示
@@ -41,10 +46,11 @@ public class ItemController {
 	
 	// 商品登録ページ表示用
 	@GetMapping("toroku") //「http://localhost:8080/item/toroku」で取得できる
-	public String torokuPage(@ModelAttribute("itemForm") ItemForm itemForm) {
+	public String torokuPage(@ModelAttribute("itemForm") ItemForm itemForm, Model model) {
 		// @ModelAttribute("itemForm") ... itemFormをモデルに追加
 		// ItemForm itemForm ... オブジェクト名
-		
+		List<Category> categories = this.categoryService.findAll();
+		model.addAttribute("categories", categories);
 		return "item/torokuPage"; //「item/torokuPage.html」を返す
 	}
 	
