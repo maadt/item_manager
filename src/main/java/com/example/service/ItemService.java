@@ -63,6 +63,7 @@ public class ItemService {
 		// this.findById(id) ... クラス内のfindByIdメソッドを実行
 		item.setName(itemForm.getName()); // 追加したモデル属性の情報を取得してエンティティクラスにセット
 		item.setPrice(itemForm.getPrice());
+		item.setCategoryId(itemForm.getCategoryId());
 		return this.itemRepository.save(item); // itemRepositoryを介してデータの更新処理を行う
 	}
 	
