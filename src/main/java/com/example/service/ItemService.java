@@ -38,6 +38,7 @@ public class ItemService {
 		item.setName(itemForm.getName()); // 追加したモデル属性の情報を取得してエンティティクラスにセット
 		item.setPrice(itemForm.getPrice());
 		item.setCategoryId(itemForm.getCategoryId());
+		item.setStock(0); // 新規商品の在庫の初期値は0とする
 		return this.itemRepository.save(item); // itemRepositoryを介してDBにデータが保存される
 	}
 	
@@ -67,7 +68,7 @@ public class ItemService {
 		return this.itemRepository.save(item); // itemRepositoryを介してデータの更新処理を行う
 	}
 	
-	// 論理削除
+	// 論理削除1
 	public Item delete(Integer id) {
 	// Integer id ... コントローラークラスから商品IDを受け取る
         Item item = this.findById(id);
@@ -81,9 +82,27 @@ public class ItemService {
         //メソッドは値を返さないのでvoid型となる
 	}
 	
-	// 非表示処理
+	// 論理削除2
     public List<Item> findByDeletedAtIsNull() {
         return this.itemRepository.findByDeletedAtIsNull();
         // this.itemRepository.findByDeletedAtIsNull() ... itemRepositoryを介して非表示処理を行う
+    }
+    
+    // 入荷処理
+    public Item nyuka(Integer id, Integer inputValue) {
+        Item item = this.findById(id);
+        item.setStock(item.getStock() + inputValue); // 在庫数の加算
+        return this.itemRepository.save(item); // 在庫数の保存
+    }
+
+    // 出荷処理
+    public Item shukka(Integer id, Integer inputValue) {
+        Item item = this.findById(id);
+        if (inputValue <= item.getStock()) { // 出荷数に対して在庫数が足りているかを判定する
+            item.setStock(item.getStock() - inputValue); // 足りていれば在庫数の減算を行う
+        }
+
+        // 在庫数の変動を保存
+        return this.itemRepository.save(item);
     }
 }

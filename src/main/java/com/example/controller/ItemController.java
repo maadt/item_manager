@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.entity.Category;
 import com.example.entity.Item;
 import com.example.form.ItemForm;
 import com.example.service.CategoryService;
 import com.example.service.ItemService;
+
 
 
 @Controller //コントローラーとしての機能を付与
@@ -79,6 +81,9 @@ public class ItemController {
 		model.addAttribute("id", id);
 		// model ... ビューに渡すためのコンテナ
 		// addAttribute ... 第一引数にモデル属性名、第二引数に変数名
+		itemForm.setCategoryId(item.getCategoryId());
+		List<Category> categories = this.categoryService.findAll();
+		model.addAttribute("categories", categories);
 		return "item/henshuPage"; //「item/henshuPage.html」を返す
 	}
 	
@@ -99,5 +104,21 @@ public class ItemController {
 		return "redirect:/item";
 	}
 	
+	//入荷処理
+	@PostMapping(path = "stock/{id}", params = "in")
+	// path = "stock/{id}", params = "in"：条件にマッチした時に実行される
+    public String nyuka(@PathVariable("id") Integer id, @RequestParam("stock") Integer inputValue) {
+	// リクエストで受け取ったstockパラメーターを、Integer inputValueに代入する
+	// Integer id ... 商品ID
+    // Integer inputValue ... 入荷数
+        this.itemService.nyuka(id, inputValue); //サービスクラスで処理を実行する
+        return "redirect:/item";
+    }
 	
+	//出荷処理
+	@PostMapping(path = "stock/{id}", params = "out")
+    public String shukka(@PathVariable("id") Integer id, @RequestParam("stock") Integer inputValue) {
+        this.itemService.shukka(id, inputValue);
+        return "redirect:/item";
+    }
 }
