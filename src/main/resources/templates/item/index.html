@@ -20,6 +20,7 @@
 				<th>id</th>
 				<th>商品名</th>
 				<th>価格</th>
+				<th>カテゴリ</th>
 				<th></th>
 				<th></th>
 			</tr>
@@ -30,6 +31,7 @@
 				<td th:text="${item.id}"></td>
 				<td th:text="${item.name}"></td>
 				<td th:text="${item.price}"></td>
+				<td th:text="${item.category.name}"></td>
 				<!-- 表の列または行に関連する見出し(細字) -->
 				<td>
 					<!-- 編集ページにアクセス -->

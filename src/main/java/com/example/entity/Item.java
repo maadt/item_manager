@@ -7,8 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
 
 @Entity // Entityクラスであることを示す
 @Table(name = "ITEMS") // 使用するテーブル名
@@ -28,24 +31,25 @@ public class Item {
 	@Column(name = "ID") //フィールドに対応するカラムを指定する
 	private Integer id;
 	
-	@Column(name = "NAME")
-	private String name;
-	
-	@Column(name = "PRICE")
-	private Integer price;
-	
 	public Integer getId() {
 		return this.id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	@Column(name = "NAME")
+	private String name;
+	
 	public String getName() {
 		return this.name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	@Column(name = "PRICE")
+	private Integer price;
+	
 	public Integer getPrice() {
 		return this.price;
 	}
@@ -62,5 +66,27 @@ public class Item {
 
     public void setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
+    }
+    
+    @Column(name = "CATEGORY_ID")
+    private Integer categoryId;
+
+    public Integer getCategoryId() {
+        return this.categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+    
+    @ManyToOne // フィールドが多対一であるため（多くのアイテムが1つのカテゴリに関連付けられる）
+    @JoinColumn(name = "category_id", insertable = false, updatable = false)
+    // @JoinColumn ... フィールドとカラムを関連付ける
+    // name = "category_id" ... カラムの指定
+    // insertable = false, updatable = false ... フィールドをテーブルに挿入または更新しない
+    private Category category;
+
+    public Category getCategory() {
+        return this.category;
     }
 }
