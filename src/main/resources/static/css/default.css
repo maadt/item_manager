@@ -1,1 +1,62 @@
-@charset "UTF-8";
+
+:root {/* :root：共通の色を一元管理する */
+    --header-color:  #DADADA;/*ヘッダーの背景色*/
+    --menu-color: #204969;/*サイドバーの背景色*/
+}
+/* --：独自のCSS変数を作成 */
+
+body {
+    height: 100vh; /* vh：ページ全体（ビューポート）の高さ */
+    margin: 0;
+}
+
+/* ヘッダーを調整する */
+.header {
+    background-color: var(--header-color);/* var()：変数の値を各プロパティに挿入する */
+    min-height: 10%;/* min：要素が自動的に調整される高さ。指定した最小値を下回らないように制約を加える。*/
+}
+
+.header h1 {
+    margin: 0;
+}
+
+/* メニューとコンテンツを横並びにし、高さを調整する */
+.main {
+    display: flex;/* flex：要素を効果的に水平方向および垂直方向に配置する */
+    height: 90%;
+}
+
+/* サイドメニュー全体の横幅を指定する */
+.side-menu {
+    width: 20%;
+}
+
+/* コンテンツ部分の幅を調整する */
+.contents {
+    width: 80%;
+}
+
+/* サイドメニューを調整する */
+.menu-list {
+    background-color: var(--menu-color);
+    border-style: none;/* 要素の周囲にボーダーを持たない状態にする */
+    display: flex;
+    flex-direction: column;/*フレックスアイテムの配置方向を垂直方向（縦方向）に設定する*/
+    height: 100%;
+    list-style: none;/*マーカー（リストアイテムの前に表示される記号や番号）を非表示にする*/
+    margin: 0;
+    padding: 0;
+}
+
+/* メニューの文字を調整する */
+.menu-list a {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;/*下線や取り消し線を削除する*/
+}
+
+/* メニュー内の文字間隔を調整する */
+.menu-list li {
+    margin: 20px 0;
+    padding: 0 10px;
+}

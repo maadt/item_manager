@@ -92,7 +92,7 @@ public class ItemService {
     public Item nyuka(Integer id, Integer inputValue) {
         Item item = this.findById(id);
         item.setStock(item.getStock() + inputValue); // 在庫数の加算
-        return this.itemRepository.save(item); // 在庫数の保存
+        return this.itemRepository.save(item); // 在庫数の変動を保存
     }
 
     // 出荷処理
