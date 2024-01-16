@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{layout/base :: layout(~{::title}, ~{::link}, ~{::body/content()})}">
+<!-- xmlns:th="http://www.thymeleaf.org"： thという名前空間を定義し、Thymeleafの属性を使用-->
+<!-- :: はフラグメントの呼び出しを示す記号-->
+<!-- ~{layout/base :: layout()}：layout/baseのlayoutフラグメントを呼び出す -->
+<!-- ~{::title}：空のtitleパラメータを指定 -->
+<!-- ~{::link}：空のlinkパラメータを指定 -->
+<!-- ~{::body/content()}：body/content()フラグメントの呼び出し-->
+<head>
+<meta charset="UTF-8">
+<title>商品一覧表示</title>
+<link rel="stylesheet" href="/css/item/index.css">
+</head>
+<body>
+	<h1>商品一覧表示ページ</h1>
+	<!-- データを表形式で表示 -->
+	<table class="tbl">
+		<!-- 表の列の見出し -->
+		<thead>
+			<!-- 画面上の一行を定義 -->
+			<tr>
+				<!-- 表の列または行に関連する見出し(太字) -->
+				<th>id</th>
+				<th>商品名</th>
+				<th>価格</th>
+				<th>在庫数</th>
+				<th>カテゴリ</th>
+				<th class="tbl-stock"></th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- th:each="子要素で使う変数名 : ${List型の変数}" -->
+			<tr th:each="item : ${items}">
+				<td th:text="${item.id}"></td>
+				<td th:text="${item.name}"></td>
+				<td th:text="${item.price}"></td>
+				<td th:text="${item.stock}"></td>
+				<td th:text="${item.category.name}"></td>
+				<!-- td：表の列または行に関連する見出し(細字) -->
+				<td>
+                    <form th:action="@{/item/stock/{id}(id=${item.id})}" method="post">
+                        <input class="tbl-form" type="number" name="stock">
+                        <input class="tbl-stock-btn" type="submit" name="in" value="入荷">
+                        <input class="tbl-stock-btn" type="submit" name="out" value="出荷">
+                    </form>
+                </td>
+				<td>	
+					<form th:action="@{/item/henshu/{id}(id=${item.id})}" method="get">
+						<input class="tbl-btn" type="submit" value="編集">
+					</form>			
+				</td>
+				<td>
+					<form th:action="@{/item/sakujo/{id}(id=${item.id})}" method="post">
+						<input class="tbl-btn" type="submit" value="削除">
+					</form>			
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

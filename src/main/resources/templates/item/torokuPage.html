@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/base :: layout(~{::title}, ~{}, ~{::body/content()})}">
+<!-- ~{}：link要素がないため、空のフラグメント式を記述。要素がない場合はエラーを返す-->
+<head>
+<meta charset="UTF-8">
+<title>商品新規登録ページ</title>
+</head>
+<body>
+	<h1>商品新規登録ページ</h1>
+	<form th:action="@{/item/toroku}" th:object="${itemForm}" method="post">
+	<!-- th:action="@{/item/toroku}"：コントローラーでマッピングしたパスと揃えて紐付け -->
+	<!-- th:object="${itemForm}"：コントローラーで紐付けたモデル属性を指定 -->
+	<!-- method="post" ... 受信側なのでpost -->
+	    <div>
+			<label>商品名</label>
+		</div>
+		<div>
+			<input type="text" th:field="*{name}" placeholder="商品名を入力してください">
+			<!-- input type="text"：テキスト形式での入力 -->
+			<!-- th:field="*{name}"：エンティティクラスで@Columnを付与して定義したフィールドに対応させる -->
+			<!-- placeholder="商品名を入力してください"：テキスト入力の際に表示させるメッセージ -->
+		</div>
+		<div>
+            <label>価格</label>
+        </div>
+		<div>
+			<input type="number" th:field="*{price}" placeholder="価格を入力してください">
+			<!-- input type="number"：数値形式での入力 -->
+		</div>
+		<div>
+            <label>カテゴリ名</label>
+        </div>
+        <div>
+            <select th:field="*{categoryId}">
+			<!-- select：選択肢の表示 -->
+			<!-- th:field="*{categoryId}"：categoryIdフィールドに紐付ける -->
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                <!-- option：値をフォームデータとして処理して選択肢をユーザーに提供するための機能 -->
+                <!-- th:each="category" : ${categories}： categoriesリストの繰り返し処理 -->
+                <!-- th:value="${category.id}"： category.idが選択肢として表示される -->
+                <!-- th:text="${category.name}"： category.nameがテキストとして表示される -->
+            </select>
+        </div>
+		<div>
+			<input type="submit" name="send" value="登録する">
+			<!-- input type="submit"：送信ボタンを作成する -->
+			<!-- name="send"：サーバーが識別するための一意の名称を定義 -->
+			<!-- value="登録する"：送信ボタンに表示するテキスト -->
+		</div>
+		<div>
+			<a href="/item">戻る</a>
+			<!-- 一覧ページに戻るためのパスを指定 -->
+		</div>
+	</form>
+</body>
+</html>
