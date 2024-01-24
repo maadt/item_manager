@@ -13,7 +13,7 @@
     margin: 0 auto;
     width: 85%;
     background-color: white;
-    border-spacing: 0;
+    border-spacing: 0;/*テーブル要素のセル間隔を設定する*/
 }
 
 /* テーブルヘッダーの色を指定します */
